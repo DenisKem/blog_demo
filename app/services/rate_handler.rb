@@ -12,7 +12,7 @@ class RateHandler < ApplicationHandler
     return unless valid?
     post.with_lock do
       create_rate
-      update_average_rate
+      post.update_average_rate!
     end
   end
 
@@ -22,19 +22,11 @@ class RateHandler < ApplicationHandler
     Rate.create!(post: post, value: value)
   end
 
-  def new_average_rate
-    Rate.where(post: post).average(:value)
-  end
-
   def permitted_params(params)
     params.permit(:value)
   end
 
   def serialize_resource
     PostRateSerializer.new(post)
-  end
-
-  def update_average_rate
-    post.update!(average_rate: new_average_rate)
   end
 end

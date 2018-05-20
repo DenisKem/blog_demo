@@ -29,8 +29,8 @@ RSpec.describe RateHandler do
       let(:value) { 3 }
 
       before :each do
-        RateHandler.perform(post_record, value: 5)
-        post_record.reload
+        create(:rate, post: post_record, value: 5)
+        post_record.update_average_rate!
       end
 
       it "saves rate" do
