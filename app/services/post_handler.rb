@@ -20,6 +20,10 @@ class PostHandler < ApplicationHandler
     end
   end
 
+  def permitted_params(params)
+    params.permit(:author_ip, :author_login, :content, :title)
+  end
+
   def serialize_resource
     PostSerializer.new(post)
   end

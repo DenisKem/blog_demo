@@ -2,11 +2,12 @@ class ApplicationHandler
   include ActiveModel::AttributeAssignment
   include ActiveModel::Validations
 
-  def self.perform(params)
-    new(params).tap(&:main)
+  def self.perform(*args)
+    new(*args).tap(&:main)
   end
 
   def initialize(params)
+    params = params.respond_to?(:permit) ? permitted_params(params) : params
     self.assign_attributes(params)
   end
 
