@@ -43,7 +43,7 @@ RSpec.describe PostHandler do
 
       context "when author_ip has already stored" do
         before :each do
-          create(:author_ip, ip: "0.0.0.0", logins: ["test2"])
+          create(:author_ip, ip: "0.0.0.0", logins: ["test2"], logins_count: 1)
         end
 
         it "does not save author ip" do
@@ -52,6 +52,10 @@ RSpec.describe PostHandler do
 
         it "adds login int login array" do
           expect { subject }.to change { AuthorIp.take.logins }.from(["test2"]).to(["test2", "test"])
+        end
+
+        it "updates logins_count" do
+          expect { subject }.to change { AuthorIp.take.logins_count }.from(1).to(2)
         end
       end
     end
