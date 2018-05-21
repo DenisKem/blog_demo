@@ -12,7 +12,7 @@ class V1::PostsController < ApplicationController
   end
 
   def top
-    top_posts = Post.top.limit(params[:limit]).includes(:author)
+    top_posts = Post.top.limit(params[:limit])
     render json: top_posts, each_serializer: TopPostsSerializer
   end
 end
