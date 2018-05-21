@@ -3,6 +3,10 @@ class V1::PostsController < ApplicationController
     respond_with PostHandler.perform(params)
   end
 
+  def popular_author_ips
+    render json: {ips: Post.popular_author_ips}
+  end
+
   def rate
     respond_with RateHandler.perform(Post.find(params[:id]), params)
   end
