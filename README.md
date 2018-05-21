@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+`db:seed` is running too slow (about 33min)
+You can use db dump in `support/dump.sql`
 
-Things you may want to cover:
+Create post
+`POST http://localhost:3000/posts`
 
-* Ruby version
+Rate post
+`POST http://localhost:3000/posts/1/rate`
 
-* System dependencies
+Get N top posts
+http://localhost:3000/api/v1/posts/top?limit=10
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Get ips
+http://localhost:3000/api/v1/author_ips
