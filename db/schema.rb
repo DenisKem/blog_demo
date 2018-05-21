@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_20_164933) do
+ActiveRecord::Schema.define(version: 2018_05_21_052130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "author_ips", force: :cascade do |t|
+    t.string "ip", null: false
+    t.string "logins", default: [], null: false, array: true
+    t.integer "logins_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.integer "author_id", null: false

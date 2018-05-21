@@ -7,7 +7,10 @@ class PostHandler < ApplicationHandler
     return unless valid?
     build_post
     set_author
-    post.save
+    ApplicationRecord.transaction do
+      post.save
+      save_author_ip
+    end
   end
 
   private
@@ -22,6 +25,15 @@ class PostHandler < ApplicationHandler
 
   def permitted_params(params)
     params.permit(:author_ip, :author_login, :content, :title)
+  end
+
+  def save_author_ip
+    author_ip_record = AuthorIp.find_or_initialize_by(ip: author_ip)
+    unless author_ip_record.logins.include?(author_login)
+      author_ip_record.logins << author_login
+      author_ip_record.increment(:logins_count)
+    end
+    author_ip_record.save!
   end
 
   def serialize_resource

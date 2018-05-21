@@ -54,12 +54,4 @@ RSpec.describe V1::PostsController, type: :controller do
       end
     end
   end
-
-  describe "#popular_author_ips" do
-    subject { get :popular_author_ips }
-
-    it "returns ok" do
-      expect(subject).to have_http_status(:ok)
-    end
-  end
 end
